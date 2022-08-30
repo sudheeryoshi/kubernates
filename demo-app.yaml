@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app
+  name: web-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-app
+      app: web-app
   template:
     metadata:
       labels:
-        app: demo-app
+        app: web-app
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: demo-app
+      - name: web-app
         image: venkatasudhakar33/web-app:2.0
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -29,16 +29,16 @@ spec:
             memory: 256Mi
         ports:
         - containerPort: 8080
-          name: d-app
+          name: w-app
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-app
+  name: web-app
 spec:
   type: LoadBalancer
   ports:
   - port: 8080
   selector:
-    app: demo-app
+    app: web-app
 
